@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  core: {
+    auth0: {
+      clientID: "X38a0dXMy2xZ4cVaX5HqUeZ4YeqFvAAg",
+      domain: "i-tech.auth0.com",
+      responseType: "token id_token",
+      audience: "https://prontuario.security.com.br",
+      redirectUri: "http://localhost:4200/",
+      scope: "openid profile email user_metadata",
+      tokenInfo: "https://i-tech.auth0.com/tokeninfo"
+    }
+  }
 };
 
 /*

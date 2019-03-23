@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { environment } from './../../../environments/environment';
+import { AuthService } from './../../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,20 +12,18 @@ export class LoginComponent {
   showSpinner: boolean;
 
   constructor(
-
+    public authService: AuthService
   ) {
-
-
 
   }
 
   authLogin(): void {
     this.showSpinner = true;
-
+    this.authService.login();
   }
 
   authLogout(): void {
     this.showSpinner = true;
-
+    this.authService.logout();
   }
 }

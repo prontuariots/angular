@@ -4,9 +4,22 @@
   </div>
   <div card-body> -->
 
-    <button mat-button mat-raised-button color="primary" (click)="authLogin()">
+    <pre *ngIf="authService.isAuthenticated()">
+      {{authService._accessToken}}
+    </pre>
+
+    <button
+    class="btn btn-primary btn-margin"
+    (click)="authLogin()">
       Log In
-    </button>
+  </button>
+
+  <button
+    class="btn btn-primary btn-margin"
+  
+    (click)="authLogout()">
+      Log Out
+  </button>
 <!-- 
   </div>
 </app-card> -->

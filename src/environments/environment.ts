@@ -10,8 +10,8 @@ export const environment = {
       domain: "i-tech.auth0.com",
       responseType: "token id_token",
       audience: "https://prontuario.security.com.br",
-      redirectUri: "http://localhost:4200/",
-      scope: "openid profile email user_metadata",
+      redirectUri: "http://localhost:4200/home/initial",
+      scope: "openid profile email",
       tokenInfo: "https://i-tech.auth0.com/tokeninfo"
     }
   }

@@ -1,7 +1,9 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 import { AuthService } from 'src/app/core/auth/services/auth.service';
-import { MediaMatcher } from '@angular/cdk/layout';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-app-layout',
@@ -11,6 +13,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class AppLayoutComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
+
+  schedulingRoutes: any;
 
   private _mobileQueryListener: () => void;
 
@@ -22,6 +26,8 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.schedulingRoutes = environment.routes.business.scheduling;
   }
 
   ngOnDestroy(): void {

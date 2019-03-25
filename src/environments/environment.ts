@@ -14,6 +14,13 @@ export const environment = {
       scope: "openid profile email",
       tokenInfo: "https://i-tech.auth0.com/tokeninfo"
     }
+  },
+  routes: {
+    business: {
+      scheduling: {
+        scheduling: '/app/business/scheduling/calendar'
+      }
+    }
   }
 };
 

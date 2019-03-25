@@ -21,9 +21,4 @@ export class LoginComponent {
     this.showSpinner = true;
     this.authService.login();
   }
-
-  authLogout(): void {
-    this.showSpinner = true;
-    this.authService.logout();
-  }
 }

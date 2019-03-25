@@ -1,25 +1,11 @@
-<!-- <app-card>
-  <div card-title>
-    Login
-  </div>
-  <div card-body> -->
-
-    <pre *ngIf="authService.isAuthenticated()">
-      {{authService._accessToken}}
-    </pre>
-
-    <button
-    class="btn btn-primary btn-margin"
-    (click)="authLogin()">
-      Log In
-  </button>
-
-  <button
-    class="btn btn-primary btn-margin"
-  
-    (click)="authLogout()">
-      Log Out
-  </button>
-<!-- 
-  </div>
-</app-card> -->
+<mat-card text-center>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="authLogin()" color="primary">Login</button>
+  </mat-card-actions>
+</mat-card>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from '../../app-routing.module';
+import { MaterialModule } from '../material/material.module';
 
 import { AppLayoutComponent } from './app-layout/app-layout.component';
 
@@ -11,6 +12,7 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     AppRoutingModule,
   ]
 })

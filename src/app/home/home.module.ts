@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 import { LoginComponent } from './login/login.component';
 import { InitialComponent } from '../business/scheduling/components/initial/initial.component';
@@ -9,6 +10,7 @@ import { InitialComponent } from '../business/scheduling/components/initial/init
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     AppRoutingModule,
   ],
   exports: [

@@ -30,7 +30,7 @@ export class AuthService {
 
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
-        this.router.navigate(['/home/initial']);
+        this.router.navigate(['app/business/scheduling/calendar']);
       }
 
     });

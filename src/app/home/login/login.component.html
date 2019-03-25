@@ -1,11 +1,11 @@
-<mat-card text-center>
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
+<mat-card class="login-container">
+  <mat-card-header class="text-center">
+    <mat-card-title>Bem vindo ao Prontuario</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="authLogin()" color="primary">Login</button>
+  <mat-card-actions class="text-center">
+    <button class="login-button" mat-raised-button (click)="authLogin()" color="primary">Login</button>
   </mat-card-actions>
 </mat-card>

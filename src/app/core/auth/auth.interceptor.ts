@@ -3,13 +3,13 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 
 import { Observable } from 'rxjs';
 
-import { SessionLocalService } from '../session/services/session-local.service';
+import { SessionService } from '../session/services/session.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private sessionService: SessionLocalService
+    private sessionService: SessionService
   ) { 
 
   }

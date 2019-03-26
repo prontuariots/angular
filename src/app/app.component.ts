@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './core/auth/services/auth.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +13,13 @@ export class AppComponent implements OnInit {
   title = 'Prontuario';
 
   constructor(
+    private router: Router,
     public authService: AuthService
   ) {
-    this.authService.handleAuthentication();
+    // if (this.authService.isAuthenticated())
+    //   this.router.navigate(['app/business/scheduling/calendar']);
+    // else
+      this.authService.handleAuthentication();
   }
 
   ngOnInit() {

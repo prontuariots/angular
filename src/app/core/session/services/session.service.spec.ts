@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SessionLocalService } from './session-local.service';
+import { SessionLocalService } from './session.service
 
-describe('SessionLocalService', () => {
+describe('SessionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SessionLocalService]

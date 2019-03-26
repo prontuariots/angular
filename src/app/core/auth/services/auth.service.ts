@@ -4,21 +4,18 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 
 import { AUTH_CONFIG } from '../models/auth.config';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
 
+  private sessionNames: any;
   private auth0 = new auth0.WebAuth(AUTH_CONFIG);
-  private _expiresAt: number;
-  private _idToken: string;
-  private _accessToken: string;
 
   constructor(
     private router: Router
   ) {
-    this._idToken = '';
-    this._accessToken = '';
-    this._expiresAt = 0;
+    this.sessionNames = environment.core.session;
   }
 
   handleAuthentication(): void {
@@ -32,12 +29,11 @@ export class AuthService {
         this.localLogin(authResult);
         this.router.navigate(['app/business/scheduling/calendar']);
       }
-
     });
   }
 
   isAuthenticated(): boolean {
-    const expiresAt = localStorage.getItem('expiresAt');
+    let expiresAt = localStorage.getItem(this.sessionNames.expiresAt);
 
     if (!expiresAt)
       return false;
@@ -50,16 +46,12 @@ export class AuthService {
   }
 
   logout(): void {
-    this._accessToken = '';
-    this._idToken = '';
-    this._expiresAt = 0;
+    localStorage.removeItem(this.sessionNames.isLoggedIn);
+    localStorage.removeItem(this.sessionNames.accessToken);
+    localStorage.removeItem(this.sessionNames.idToken);
+    localStorage.removeItem(this.sessionNames.expiresAt);
 
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('idToken');
-    localStorage.removeItem('expiresAt');
-
-    this.router.navigate(['/']);
+    this.auth0.logout(AUTH_CONFIG);
   }
 
   renewTokens(): void {

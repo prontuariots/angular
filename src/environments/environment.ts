@@ -11,8 +11,17 @@ export const environment = {
       responseType: "token id_token",
       audience: "https://prontuario.security.com.br",
       redirectUri: "http://localhost:4200/app/business/scheduling/calendar",
+      redirectTo: "http://localhost:4200/",
       scope: "openid profile email",
       tokenInfo: "https://i-tech.auth0.com/tokeninfo"
+    },
+    session: {
+      accessToken: "accessToken",
+      expiresAt: "expiresAt",
+      idToken: "idToken",
+      isLoggedIn: "isLoggedIn",
+      user: 'user',
+      userGroup: 'userGroup'
     }
   },
   routes: {

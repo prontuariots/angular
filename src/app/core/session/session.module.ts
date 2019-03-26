@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SessionLocalService } from './services/session-local.service';
+import { SessionService } from './services/session.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   providers: [
-    SessionLocalService,
+    SessionService,
   ]
 })
 export class SessionModule { }

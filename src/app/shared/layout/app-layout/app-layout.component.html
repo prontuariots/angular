@@ -7,10 +7,15 @@
       <span>Prontuario</span>
 
       <span class="example-spacer"></span>
+      <span class="user-name">{{user.name}}</span>
       <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
+        <img class="user-avatar" src="{{user.picture}}">
       </button>
       <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>perm_identity</mat-icon>
+          <span>Perfil</span>
+        </button>
         <button mat-menu-item (click)="authService.logout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Sair</span>

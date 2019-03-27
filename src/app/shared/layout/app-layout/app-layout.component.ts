@@ -1,3 +1,4 @@
+import { SessionService } from './../../../core/session/services/session.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 
@@ -12,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AppLayoutComponent implements OnInit, OnDestroy {
 
+  user: any;
   mobileQuery: MediaQueryList;
 
   schedulingRoutes: any;
@@ -22,11 +24,13 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     media: MediaMatcher,
     public authService: AuthService,
     changeDetectorRef: ChangeDetectorRef,
+    public sessionService: SessionService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
+    this.user = this.sessionService.user;
     this.schedulingRoutes = environment.routes.business.scheduling;
   }
 

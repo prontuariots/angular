@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import * as auth0 from 'auth0-js';
 
 import { AUTH_CONFIG } from '../models/auth.config';
@@ -11,6 +13,7 @@ export class AuthService {
 
   private sessionNames: any;
   private auth0 = new auth0.WebAuth(AUTH_CONFIG);
+  private jwtHelper: JwtHelperService  = new JwtHelperService ();
 
   constructor(
     private router: Router
@@ -50,6 +53,8 @@ export class AuthService {
     localStorage.removeItem(this.sessionNames.accessToken);
     localStorage.removeItem(this.sessionNames.idToken);
     localStorage.removeItem(this.sessionNames.expiresAt);
+    localStorage.removeItem(this.sessionNames.user);
+    localStorage.removeItem(this.sessionNames.userGroup);
 
     this.auth0.logout(AUTH_CONFIG);
   }
@@ -70,9 +75,13 @@ export class AuthService {
 
 
   private localLogin(authResult): void {
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('accessToken', authResult.accessToken);
-    localStorage.setItem('idToken', authResult.idToken);
+    localStorage.setItem(this.sessionNames.isLoggedIn, 'true');
+    localStorage.setItem(this.sessionNames.idToken, authResult.idToken);
+    localStorage.setItem(this.sessionNames.accessToken, authResult.accessToken);
+    localStorage.setItem(this.sessionNames.user,JSON.stringify(authResult.idTokenPayload));
+
+    var group = this.jwtHelper.decodeToken(authResult.accessToken)['http://i-tech/autorization/groups'];
+    localStorage.setItem(this.sessionNames.userGroup, group);
 
     const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
     localStorage.setItem('expiresAt', `${expiresAt}`);

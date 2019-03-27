@@ -33,3 +33,13 @@ h1.example-app-name {
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-name {
+  margin-right: 10px
+}

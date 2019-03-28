@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate {
       return true;
 
     if (!this.authService.isAuthenticated()) {
-      this.sessionService.clearSession();
+      this.sessionService.clear();
       this.router.navigate(['/']);
     }
 

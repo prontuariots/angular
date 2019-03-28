@@ -7,9 +7,9 @@
       <span>Prontuario</span>
 
       <span class="example-spacer"></span>
-      <span class="user-name">{{user.name}}</span>
+      <span class="user-name">{{user?.name}}</span>
       <button mat-icon-button [matMenuTriggerFor]="menu">
-        <img class="user-avatar" src="{{user.picture}}">
+        <img class="user-avatar" [src]="user?.picture">
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 import * as _ from "lodash";
 
-import { UserProfile } from '../models/user-profile.model';
-
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
@@ -11,24 +9,15 @@ import { environment } from 'src/environments/environment';
 export class SessionService {
 
   private sessionNames: any;
-  jwtHelper: JwtHelperService = new JwtHelperService();
-
-  expiresAt: number;
-  isLoggedIn: boolean;
-
-  idToken: string;
-  accessToken: string;
-
-  user: UserProfile;
-  userGroup: string;
+  private jwtHelper: JwtHelperService;
 
   constructor(
   ) {
+    this.jwtHelper = new JwtHelperService();
     this.sessionNames = environment.core.session;
-    this.initializeProperties();
   }
 
-  clearSession(): void {
+  clear(): void {
     localStorage.removeItem(this.sessionNames.expiresAt);
     localStorage.removeItem(this.sessionNames.isLoggedIn);
 
@@ -39,24 +28,29 @@ export class SessionService {
     localStorage.removeItem(this.sessionNames.userGroup);
   }
 
+  set(authResult: any): void {
+    localStorage.setItem(this.sessionNames.isLoggedIn, 'true');
+    localStorage.setItem(this.sessionNames.idToken, authResult.idToken);
+    localStorage.setItem(this.sessionNames.accessToken, authResult.accessToken);
+    localStorage.setItem(this.sessionNames.user, JSON.stringify(authResult.idTokenPayload));
+
+    var group = this.jwtHelper.decodeToken(authResult.accessToken)['http://i-tech/autorization/groups'];
+    localStorage.setItem(this.sessionNames.userGroup, group);
+
+    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+    localStorage.setItem('expiresAt', `${expiresAt}`);
+  }
 
 
+  getAccessToken(): string {
+    return localStorage.getItem(this.sessionNames.accessToken);
+  }
 
+  getUser(): any {
+    return JSON.parse(localStorage.getItem(this.sessionNames.user));
+  }
 
-  private initializeProperties() {
-    let expiresAt, isLoggedIn;
-
-    expiresAt = localStorage.getItem(this.sessionNames.expiresAt);
-    if (expiresAt)
-      this.expiresAt = Number(expiresAt);
-
-    isLoggedIn = localStorage.getItem(this.sessionNames.isLoggedIn);
-    this.isLoggedIn = isLoggedIn == 'true';
-
-    this.idToken = localStorage.getItem(this.sessionNames.idToken);
-    this.accessToken = localStorage.getItem(this.sessionNames.accessToken);
-
-    this.userGroup = localStorage.getItem(this.sessionNames.userGroup);
-    this.user = JSON.parse(localStorage.getItem(this.sessionNames.user));
+  getExpiresAt(): any {
+    return localStorage.getItem(this.sessionNames.expiresAt);;
   }
 }

@@ -30,7 +30,7 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
-    this.user = this.sessionService.user;
+    this.user = this.sessionService.getUser();
     this.schedulingRoutes = environment.routes.business.scheduling;
   }
 

@@ -5,6 +5,7 @@ import { SchedulingComponent } from './components/scheduling/scheduling.componen
 import { SchedulingLayoutComponent } from './components/scheduling-layout/scheduling-layout.component';
 
 import { AppRoutingModule } from '../../app-routing.module';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 @NgModule({
   declarations: [
     SchedulingComponent,
@@ -12,6 +13,7 @@ import { AppRoutingModule } from '../../app-routing.module';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     AppRoutingModule
   ]
 })

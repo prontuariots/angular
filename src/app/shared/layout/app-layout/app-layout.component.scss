@@ -43,3 +43,35 @@ h1.example-app-name {
 .user-name {
   margin-right: 10px
 }
+
+mat-nav-list a p.pre-icon {
+  width: 15px;
+}
+
+mat-nav-list a p.aft-icon {
+  width: 15px;
+}
+
+mat-sidenav {
+  width: 90px;
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
+}
+
+mat-sidenav:hover {
+  width: 250px;
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
+}
+
+mat-sidenav a span {
+  display: none;
+}
+
+mat-sidenav:hover a span {
+  display: initial;
+}
+
+mat-sidenav-content {
+  background: #e8ded7;
+}

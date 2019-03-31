@@ -13,6 +13,12 @@ import { AuthGuardService } from './core/auth/services/auth-guard.service';
 
 import { AppComponent } from './app.component';
 
+import { registerLocaleData } from '@angular/common';
+import LocalePt from '@angular/common/locales/pt';
+import localeExtraPt from '@angular/common/locales/extra/pt';
+
+registerLocaleData(LocalePt, 'pt', localeExtraPt);
+
 @NgModule({
   declarations: [
     AppComponent

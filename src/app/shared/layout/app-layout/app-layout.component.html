@@ -1,9 +1,9 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
     <mat-toolbar-row>
-      <!-- <button mat-icon-button>
+      <button mat-icon-button (click)="isExpanded = !isExpanded">
         <mat-icon>menu</mat-icon>
-      </button> -->
+      </button>
       <span>Prontuario</span>
 
       <span class="example-spacer"></span>
@@ -26,6 +26,7 @@
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav opened
+    [ngClass]="{'mine': !isExpanded, 'full': isExpanded}"
     [mode]="'side'"  
     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
@@ -33,19 +34,19 @@
           <p class="pre-icon"></p>
           <mat-icon>calendar_today</mat-icon>
           <p class="aft-icon"></p>
-          <span>Agendamento</span>
+          <span [ngClass]="{'mine': !isExpanded, 'full': isExpanded}">Agendamento</span>
         </a>
         <a mat-list-item routerLink=".">
           <p class="pre-icon"></p>
           <mat-icon>assignment_ind</mat-icon>
           <p class="aft-icon"></p>
-          <span>Recursos Humanos</span>
+          <span [ngClass]="{'mine': !isExpanded, 'full': isExpanded}">Recursos Humanos</span>
         </a>
         <a mat-list-item routerLink=".">
           <p class="pre-icon"></p>
           <mat-icon>people</mat-icon>
           <p class="aft-icon"></p>
-          <span>Cliente</span>
+          <span [ngClass]="{'mine': !isExpanded, 'full': isExpanded}">Cliente</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>

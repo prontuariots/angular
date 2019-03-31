@@ -52,23 +52,23 @@ mat-nav-list a p.aft-icon {
   width: 15px;
 }
 
-mat-sidenav {
+mat-sidenav.mine {
   width: 90px;
   -webkit-transition: width 0.3s;
   transition: width 0.3s;
 }
 
-mat-sidenav:hover {
+mat-sidenav.full {
   width: 250px;
   -webkit-transition: width 0.3s;
   transition: width 0.3s;
 }
 
-mat-sidenav a span {
+mat-sidenav a span.mine {
   display: none;
 }
 
-mat-sidenav:hover a span {
+mat-sidenav a span.full {
   display: initial;
 }
 

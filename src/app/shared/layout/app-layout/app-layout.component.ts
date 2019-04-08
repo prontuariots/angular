@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 import { environment } from 'src/environments/environment';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-app-layout',
@@ -14,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class AppLayoutComponent implements OnInit, OnDestroy {
 
   user: any;
+  isExpanded: boolean;
   mobileQuery: MediaQueryList;
 
   schedulingRoutes: any;

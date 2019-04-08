@@ -19,6 +19,8 @@ import {
   CalendarView
 } from 'angular-calendar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material';
+import { SchedulingEventFormComponent } from '../scheduling-event-form/scheduling-event-form.component';
 
 const colors: any = {
   red: {
@@ -117,38 +119,69 @@ export class SchedulingComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) { }
+  constructor(
+    private dialog: MatDialog,
+    private modal: NgbModal
+  ) {
+
+  }
 
   ngOnInit() {
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
+    this.viewDate = date;
+
+    this.setView(CalendarView.Day);
+    // if (isSameMonth(date, this.viewDate)) {
+    //   this.viewDate = date;
+    //   if (
+    //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+    //     events.length === 0
+    //   ) {
+    //     this.activeDayIsOpen = false;
+    //   } else {
+    //     this.activeDayIsOpen = true;
+    //   }
+    // }
   }
 
-  eventTimesChanged({event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
+  hourSegmentClicked(day: Date) {
+    const dialogRef = this.dialog.open(SchedulingEventFormComponent, {
+      width: "500px",
+      data: day
     });
-    this.handleEvent('Dropped or resized', event);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.isCreate && result.success) {
+        //  this.createSuccess(result.result);
+      } else if (!result.isCreate && result.success) {
+        // this.editSuccess(result.result);
+      }
+    });
   }
+
+  eventTimesChanged() {
+
+  }
+
+  eventClicked({ status, event }: { status: any; event: any }): void {
+
+  }
+
+  // eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+  //   this.events = this.events.map(iEvent => {
+  //     if (iEvent === event) {
+  //       return {
+  //         ...event,
+  //         start: newStart,
+  //         end: newEnd
+  //       };
+  //     }
+  //     return iEvent;
+  //   });
+  //   this.handleEvent('Dropped or resized', event);
+  // }
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };

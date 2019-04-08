@@ -1,6 +1,6 @@
-<mat-card class="example-card">
+<mat-card>
   <mat-card-header>
-    <div class="row text-center">
+    <div class="row">
       <div class="col-4">
         <div class="btn-group">
           <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
@@ -37,6 +37,9 @@
   </mat-card-header>
 
   <mat-card-content>
+      <ng-template #customCellTemplate let-weekEvent="weekEvent" let-locale="locale">
+          {{weekEvent.event.title}}
+      </ng-template>
     <div [ngSwitch]="view">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" [locale]="'pt'" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
@@ -46,9 +49,15 @@
         [refresh]="refresh" [locale]="'pt'" (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view>
-      <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [locale]="'pt'" (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)">
+      <mwl-calendar-day-view 
+        [hourSegments]="4"
+        [dayStartHour]="8"
+        [dayEndHour]="20"
+        (eventClicked)="eventClicked($event)"
+        (hourSegmentClicked)="hourSegmentClicked($event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+        *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" [locale]="'pt'">
       </mwl-calendar-day-view>
     </div>
 
@@ -133,8 +142,4 @@
     </ng-template>
 
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
 </mat-card>

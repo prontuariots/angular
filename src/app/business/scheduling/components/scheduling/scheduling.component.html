@@ -20,6 +20,9 @@
      
       <mwl-calendar-week-view 
         *ngSwitchCase="CalendarView.Week" 
+        [hourSegments]="4"
+        [dayStartHour]="8"
+        [dayEndHour]="20"
         [viewDate]="viewDate" 
         [events]="events"
         [refresh]="refresh" 

@@ -14,6 +14,7 @@ import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SchedulingEventFormComponent } from './components/scheduling-event-form/scheduling-event-form.component';
+import { SchedulingHeaderComponent } from './components/scheduling-header/scheduling-header.component';
 
 @NgModule({
   entryComponents: [
@@ -23,7 +24,8 @@ import { SchedulingEventFormComponent } from './components/scheduling-event-form
   declarations: [
     SchedulingComponent,
     SchedulingLayoutComponent,
-    SchedulingEventFormComponent
+    SchedulingEventFormComponent,
+    SchedulingHeaderComponent
   ],
   imports: [
     CommonModule,

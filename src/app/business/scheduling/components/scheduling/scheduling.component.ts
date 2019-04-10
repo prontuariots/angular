@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { Subject } from 'rxjs';
 
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMinutes } from 'date-fns';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,12 @@ import { SchedulingEventFormComponent } from '../scheduling-event-form/schedulin
   styleUrls: ['./scheduling.component.scss']
 })
 export class SchedulingComponent implements OnInit {
+
+  dayStartHour: Date;
+  dayEndHour: Date;
+  hourSegments: number;
+
+  hoursEvents: any[];
 
   activeDayIsOpen: boolean;
 
@@ -42,6 +48,31 @@ export class SchedulingComponent implements OnInit {
     private dialog: MatDialog,
     private modal: NgbModal
   ) {
+    this.dayStartHour = new Date();
+    this.dayStartHour.setHours(8, 0, 0);
+
+    this.dayEndHour = new Date();
+    this.dayEndHour.setHours(20, 0, 0);
+
+    this.hourSegments = 15;
+
+    this.hoursEvents = [];
+    ((): any => {
+      let start: Date, arr = [];
+
+      start = new Date();
+      start.setHours(8, 0, 0);
+
+      for (let index = 0; index < ((20 - 8) * (60 / this.hourSegments)); index++) {
+        this.hoursEvents.push({
+          date: start,
+          event: { }
+        });
+
+        start = addMinutes(start, this.hourSegments);
+      }
+    })();
+
     this.activeDayIsOpen = false;
   }
 
@@ -63,10 +94,10 @@ export class SchedulingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resource => {
       if (resource.isCreate && resource.success) {
-        this.events = [
-          ...this.events,
-          resource.event
-        ];
+        this.hoursEvents.forEach(item => {
+          if(item.date == resource.date.date)
+          item.event = resource.event
+        });
       } else if (!resource.isCreate && resource.success) {
         // this.editSuccess(result.result);
       }

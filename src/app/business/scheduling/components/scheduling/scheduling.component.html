@@ -1,55 +1,93 @@
 <mat-card>
   <mat-card-header>
-      <app-scheduling-header [(view)]="view" [(viewDate)]="viewDate"></app-scheduling-header>
+    <app-scheduling-header [(view)]="view" [(viewDate)]="viewDate"></app-scheduling-header>
   </mat-card-header>
 
   <mat-card-content>
     <div [ngSwitch]="view">
 
-      <mwl-calendar-month-view 
-        *ngSwitchCase="CalendarView.Month" 
-        [viewDate]="viewDate" 
-        [events]="events"
-        [refresh]="refresh" 
-        [locale]="'pt'" 
-        [activeDayIsOpen]="activeDayIsOpen" 
-        (dayClicked)="dayClicked($event.day)"
-        (eventClicked)="handleEvent('Clicked', $event.event)" 
-        (eventTimesChanged)="eventTimesChanged($event)">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" [locale]="'pt'" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
-     
-      <mwl-calendar-week-view 
-        *ngSwitchCase="CalendarView.Week" 
-        [hourSegments]="4"
-        [dayStartHour]="8"
-        [dayEndHour]="20"
-        [viewDate]="viewDate" 
-        [events]="events"
-        [refresh]="refresh" 
-        [locale]="'pt'" 
-        (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)">
-      </mwl-calendar-week-view>
-     
 
-      <ng-template #hourSegmentTemplate let-segment="segment" let-locale="locale">
-          <!-- [hourSegmentTemplate]="hourSegmentTemplate" -->
+      <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [hourSegments]="4" [dayStartHour]="8" [dayEndHour]="20"
+        [viewDate]="viewDate" [events]="events" [refresh]="refresh" [locale]="'pt'"
+        (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-week-view>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center t-w-10">Hora</th>
+              <th class="text-center t-w-30">Paciente</th>
+              <th class="text-center t-w-10">Telefone</th>
+              <th class="text-center t-w-30">Médico</th>
+              <th class="text-center t-w-10">Unidade</th>
+              <th class="text-center t-w-10">Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let hourEvent of hoursEvents" (click)="hourSegmentClicked(hourEvent)">
+              <td class="text-center">
+                <b>{{ hourEvent.date | date:'HH:mm' }}</b></td>
+              <td>{{hourEvent.event.patient}}</td>
+              <td>{{hourEvent.event.phone}}</td>
+              <td>{{hourEvent.event.doctor}}</td>
+              <td>{{hourEvent.event.place}}</td>
+              <td>{{hourEvent.event.status}}</td>
+            <tr>
+            <tr *ngFor="let event of events">
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+              </td>
+              <td>
+                <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()" />
+              </td>
+              <td>
+                <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
+              </td>
+              <td>
+                <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start"
+                  (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
+                  dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+              </td>
+              <td>
+                <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
+                  (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
+                  dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteEvent(event)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- <ng-template *ngSwitchCase="CalendarView.Day" #hourSegmentTemplate let-segment="segment" let-locale="locale">
+          <div class="cal-hour-segment"
+          [class.cal-hour-start]="segment.isStart"
+          [class.cal-after-hour-start]="!segment.isStart"
+          [ngClass]="segment.cssClass">
+          <span class="cal-time">
+            {{ segment.date | calendarDate:'dayViewHour':locale }}
+          </span>
+          <span *ngIf='!segment.isStart'>
+              This is some custom content
+              </span>
+        </div>
       </ng-template>
-      <mwl-calendar-day-view 
-        [hourSegments]="4"
-        [dayStartHour]="8"
-        [dayEndHour]="20"
-        (eventClicked)="eventClicked($event)"
-        (hourSegmentClicked)="hourSegmentClicked($event)"
-        (eventTimesChanged)="eventTimesChanged($event)"
-        *ngSwitchCase="CalendarView.Day" 
-        [viewDate]="viewDate" 
-        [events]="events"
-        [refresh]="refresh" 
-        [locale]="'pt'"
-       
-        >
-      </mwl-calendar-day-view>
+
+      <mwl-calendar-day-view [hourSegments]="4" [dayStartHour]="8" [dayEndHour]="20"
+        (eventClicked)="eventClicked($event)" (hourSegmentClicked)="hourSegmentClicked($event)"
+        (eventTimesChanged)="eventTimesChanged($event)" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
+        [events]="events" [refresh]="refresh" [locale]="'pt'" [hourSegmentTemplate]="hourSegmentTemplate">
+      </mwl-calendar-day-view> -->
     </div>
   </mat-card-content>
 </mat-card>

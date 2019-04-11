@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center t-w-10">Hora</th>
+        <th class="text-center t-w-30">Paciente</th>
+        <th class="text-center t-w-10">Telefone</th>
+        <th class="text-center t-w-30">Médico</th>
+        <th class="text-center t-w-10">Unidade</th>
+        <th class="text-center t-w-10">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let hourEvent of hoursEvents">
+        <td class="text-center" (click)="addHourEvent(hourEvent)">
+          <b>{{ hourEvent.date | date:'HH:mm' }}</b>
+        </td>
+        <td>{{hourEvent.event.patient}}</td>
+        <td>{{hourEvent.event.phone}}</td>
+        <td>{{hourEvent.event.doctor}}</td>
+        <td>{{hourEvent.event.place}}</td>
+        <td>{{hourEvent.event.status}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

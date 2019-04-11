@@ -45,7 +45,6 @@ export class SchedulingComponent implements OnInit {
   events: CalendarEvent[] = [];
 
   constructor(
-    private dialog: MatDialog,
     private modal: NgbModal
   ) {
     this.dayStartHour = new Date();
@@ -84,24 +83,6 @@ export class SchedulingComponent implements OnInit {
     this.viewDate = date;
 
     this.setView(this.CalendarView.Day);
-  }
-
-  hourSegmentClicked(day: Date) {
-    const dialogRef = this.dialog.open(SchedulingEventFormComponent, {
-      width: "500px",
-      data: day
-    });
-
-    dialogRef.afterClosed().subscribe(resource => {
-      if (resource.isCreate && resource.success) {
-        this.hoursEvents.forEach(item => {
-          if(item.date == resource.date.date)
-          item.event = resource.event
-        });
-      } else if (!resource.isCreate && resource.success) {
-        // this.editSuccess(result.result);
-      }
-    });
   }
 
   handleEvent(action: string, event: CalendarEvent): void {

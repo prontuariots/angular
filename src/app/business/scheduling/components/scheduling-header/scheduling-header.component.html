@@ -1,5 +1,5 @@
-<div class="row text-center">
-    <div class="col-md-4">
+<div class="row">
+    <div class="col-md-4 text-right">
       <div class="btn-group">
         <div
           class="btn btn-primary"
@@ -8,7 +8,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Previous
+          Anterior
         </div>
         <div
           class="btn btn-outline-secondary"
@@ -16,7 +16,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Today
+          Hoje
         </div>
         <div
           class="btn btn-primary"
@@ -25,29 +25,29 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="viewDateChange.next(viewDate)"
         >
-          Next
+          Próximo
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5 text-center">
       <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3 text-left">
       <div class="btn-group">
         <div
           class="btn btn-primary"
           (click)="viewChange.emit('month')"
           [class.active]="view === 'month'"
         >
-          Month
+          Mês
         </div>
-        <div
+        <!-- <div
           class="btn btn-primary"
           (click)="viewChange.emit('week')"
           [class.active]="view === 'week'"
         >
           Week
-        </div>
+        </div> -->
         <div
           class="btn btn-primary"
           (click)="viewChange.emit('day')"

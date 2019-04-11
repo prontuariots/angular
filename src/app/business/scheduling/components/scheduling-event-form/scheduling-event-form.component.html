@@ -1,10 +1,13 @@
-  <h1 mat-dialog-title class="text-center">Inicio da consulta {{ day | date: 'dd/MM/yyyy hh:mm'}}</h1>
+  <h1 mat-dialog-title class="text-center">
+    Inicio da consulta {{ hourEvent.date | date: 'dd/MM/yyyy hh:mm'}}
+  </h1>
 
   <mat-dialog-content>
     <span>Formulário</span>
   </mat-dialog-content>
 
   <mat-dialog-actions>
-      <button mat-button mat-raised-button color="primary" (click)="addEvent()">Agendar</button>
+    <button mat-button mat-raised-button color="primary" (click)="addEvent()">Agendar</button>
+    <button mat-button mat-raised-button color="warn" (click)="cancelEvent()">Cancelar</button>
     <button mat-button mat-dialog-close>Fechar</button>
   </mat-dialog-actions>

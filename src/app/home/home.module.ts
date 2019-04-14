@@ -5,7 +5,6 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 
 import { LoginComponent } from './login/login.component';
-import { InitialComponent } from '../business/scheduling/components/initial/initial.component';
 
 @NgModule({
   imports: [
@@ -15,11 +14,9 @@ import { InitialComponent } from '../business/scheduling/components/initial/init
   ],
   exports: [
     LoginComponent,
-    InitialComponent
   ],
   declarations: [
     LoginComponent,
-    InitialComponent
   ]
 })
 export class HomeModule { }

@@ -6,6 +6,7 @@ import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
 import { SchedulingEventFormComponent } from '../scheduling-event-form/scheduling-event-form.component';
 import { DoctorFormComponent } from '../../../registration/doctor/components/doctor-form/doctor-form.component';
 import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
+import { RegistrationService } from 'src/app/business/registration/registration.service';
 
 @Component({
   selector: 'app-scheduling-day-view',
@@ -20,11 +21,15 @@ export class SchedulingDayViewComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
+    private registrationService: RegistrationService
   ) {
     this.doctors = [];
   }
 
   ngOnInit() {
+    this.registrationService.getDoctors().subscribe(data => {
+      this.doctors = data;
+    });
   }
 
   addDoctor(): void {
@@ -38,7 +43,8 @@ export class SchedulingDayViewComponent implements OnInit {
 
     dialogRef.componentInstance.submit.subscribe((date: any) => {
       this.doctors.push(date.result);
-      alert(JSON.stringify(date));
+      this.registrationService.saveDoctor(date.result);
+
       dialogRef.close();
     });
   }

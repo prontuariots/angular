@@ -53,4 +53,24 @@ export class SessionService {
   getExpiresAt(): any {
     return localStorage.getItem(this.sessionNames.expiresAt);;
   }
+
+
+
+
+
+  setDoctor(doctor: any): void {
+    let doctors = this.getDoctors();
+
+    doctors.push(doctor);
+
+    localStorage.setItem('doctors', JSON.stringify(doctors));
+  }
+
+  getDoctors(): any[] {
+    let doctors = JSON.parse(localStorage.getItem('doctors'));
+
+    doctors = doctors || [];
+
+    return doctors;
+  }
 }

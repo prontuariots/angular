@@ -11,7 +11,7 @@
         (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
 
-      <app-scheduling-day-view [hoursEvents]="hoursEvents"></app-scheduling-day-view>
+      <app-scheduling-day-view *ngSwitchCase="CalendarView.Day" [hoursEvents]="hoursEvents"></app-scheduling-day-view>
 
     </div>
   </mat-card-content>

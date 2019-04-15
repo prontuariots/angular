@@ -1,3 +1,12 @@
-<p>
-  doctor-form works!
-</p>
+<form [formGroup]="formGroup">
+  <formly-form [model]="model" [fields]="formFields" [form]="formGroup"></formly-form>
+</form>
+
+
+<button mat-button mat-raised-button color="primary" (click)="onSubmitCreate()" [disabled]="!formGroup.valid">
+  Adicionar
+  <span class="fa-2x margin-left-10">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </span>
+</button>
+<button mat-button (click)="onCancel()">Fechar</button>

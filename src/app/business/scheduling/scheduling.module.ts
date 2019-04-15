@@ -11,12 +11,14 @@ import { SchedulingHeaderComponent } from './components/scheduling-header/schedu
 import { SchedulingLayoutComponent } from './components/scheduling-layout/scheduling-layout.component';
 import { SchedulingDayViewComponent } from './components/scheduling-day-view/scheduling-day-view.component';
 import { SchedulingEventFormComponent } from './components/scheduling-event-form/scheduling-event-form.component';
+import { DoctorFormComponent } from '../registration/doctor/components/doctor-form/doctor-form.component';
 
 @NgModule({
   entryComponents: [
     SchedulingComponent,
     SchedulingDayViewComponent,
-    SchedulingEventFormComponent
+    SchedulingEventFormComponent,
+    DoctorFormComponent
   ],
   declarations: [
     SchedulingComponent,

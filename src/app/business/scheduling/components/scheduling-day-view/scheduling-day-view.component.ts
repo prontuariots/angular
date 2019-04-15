@@ -4,6 +4,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
 
 import { SchedulingEventFormComponent } from '../scheduling-event-form/scheduling-event-form.component';
+import { DoctorFormComponent } from '../../../registration/doctor/components/doctor-form/doctor-form.component';
+import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
 
 @Component({
   selector: 'app-scheduling-day-view',
@@ -12,26 +14,50 @@ import { SchedulingEventFormComponent } from '../scheduling-event-form/schedulin
 })
 export class SchedulingDayViewComponent implements OnInit {
 
+  doctors: Doctor[];
+
   @Input() hoursEvents: SchedulingHourEvent[];
 
   constructor(
     private dialog: MatDialog,
   ) {
-
+    this.doctors = [];
   }
 
   ngOnInit() {
   }
 
+  addDoctor(): void {
+    const dialogRef = this.dialog.open(DoctorFormComponent, {
+      width: "70%",
+    });
+
+    dialogRef.componentInstance.cancel.subscribe(() => {
+      dialogRef.close();
+    });
+
+    dialogRef.componentInstance.submit.subscribe((date: any) => {
+      this.doctors.push(date.result);
+      alert(JSON.stringify(date));
+      dialogRef.close();
+    });
+  }
+
   addHourEvent(hourEvent: SchedulingHourEvent) {
     const dialogRef = this.dialog.open(SchedulingEventFormComponent, {
-      width: "500px",
+      width: "70%",
       data: hourEvent
+    });
+
+    dialogRef.componentInstance.doctors = this.doctors;
+
+    const sub = dialogRef.componentInstance.addDoctor.subscribe(() => {
+      this.addDoctor();
     });
 
     dialogRef.afterClosed().subscribe(resource => {
       if (resource.isCreate && resource.success) {
-        let hourEvent:SchedulingHourEvent = resource.hourEvent;
+        let hourEvent: SchedulingHourEvent = resource.hourEvent;
 
         this.hoursEvents.forEach((item: SchedulingHourEvent) => {
           if (item.date == hourEvent.date)

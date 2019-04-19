@@ -4,19 +4,18 @@ import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-import { Doctor } from '../../models/doctor.model';
+import { Unit } from '../../models/unit.model';
 
 @Component({
-  selector: 'app-doctor-form',
-  templateUrl: './doctor-form.component.html',
-  styleUrls: ['./doctor-form.component.scss']
+  selector: 'app-unit-form',
+  templateUrl: './unit-form.component.html',
+  styleUrls: ['./unit-form.component.scss']
 })
-export class DoctorFormComponent implements OnInit {
-
+export class UnitFormComponent implements OnInit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Output() cancel: EventEmitter<string> = new EventEmitter();
 
-  model: Doctor;
+  model: Unit;
 
   title: string;
   isCreate: boolean;
@@ -24,7 +23,7 @@ export class DoctorFormComponent implements OnInit {
   formFields: FormlyFieldConfig[];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: Doctor,
+    @Inject(MAT_DIALOG_DATA) data: Unit,
   ) {
     this.isCreate = !data || !data.id.length;
 
@@ -55,39 +54,17 @@ export class DoctorFormComponent implements OnInit {
 
 
   private setFormFields(): void {
-    let crm: any, name: any;
+    let name: any;
 
-    crm = this.crmFiled();
     name = this.nameField();
 
     this.formFields = [{
       fieldGroupClassName: 'row',
       fieldGroup: [
-        crm,
         name
       ]
     }
     ];
-  }
-  private crmFiled(): any {
-    return {
-      key: 'crm',
-      type: "input",
-      className: 'col-3',
-      templateOptions: {
-        type: "text",
-        label: "CRM",
-        placeholder: "CRM do Médico",
-        required: true,
-        maxLength: 20,
-      },
-      validation: {
-        messages: {
-          required: "Campo obrigatório",
-          maxLength: 'Máximo de 20 caracteres'
-        }
-      }
-    }
   }
   private nameField(): any {
     return {
@@ -97,7 +74,7 @@ export class DoctorFormComponent implements OnInit {
       templateOptions: {
         type: "text",
         label: "Nome",
-        placeholder: "Nome do Médico",
+        placeholder: "Nome da Unidade",
         required: true,
         maxLength: 150,
       },
@@ -111,10 +88,10 @@ export class DoctorFormComponent implements OnInit {
   }
 
   private setTitle() {
-    this.title = 'Adicionar Médico';
+    this.title = 'Adicionar Unidade';
 
     if (!this.isCreate) {
-      this.title = 'Editar Médico';
+      this.title = 'Editar Unidade';
     }
   }
 }

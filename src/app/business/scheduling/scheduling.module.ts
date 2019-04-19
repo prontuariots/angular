@@ -1,3 +1,4 @@
+import { UnitFormComponent } from './../registration/unit/components/unit-form/unit-form.component';
 import { NgModule } from '@angular/core';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -15,10 +16,11 @@ import { DoctorFormComponent } from '../registration/doctor/components/doctor-fo
 
 @NgModule({
   entryComponents: [
+    UnitFormComponent,
+    DoctorFormComponent,
     SchedulingComponent,
     SchedulingDayViewComponent,
     SchedulingEventFormComponent,
-    DoctorFormComponent
   ],
   declarations: [
     SchedulingComponent,

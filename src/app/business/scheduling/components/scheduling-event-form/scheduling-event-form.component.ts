@@ -3,6 +3,8 @@ import { Component, OnInit, Inject, EventEmitter, Output, Input } from '@angular
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { SchedulingComponent } from '../scheduling/scheduling.component';
+
+import { Unit } from 'src/app/business/registration/unit/models/unit.model';
 import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
 import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
 
@@ -13,13 +15,14 @@ import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model
 })
 export class SchedulingEventFormComponent implements OnInit {
 
-  @Input() units: any[];
+  @Input() units: Unit[];
   @Input() customers: any[];
   @Input() doctors: Doctor[];
 
   hourEvent: SchedulingHourEvent;
 
   @Output() addDoctor: EventEmitter<string> = new EventEmitter();
+  @Output() addUnit: EventEmitter<string> = new EventEmitter();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) hourEvent: SchedulingHourEvent,

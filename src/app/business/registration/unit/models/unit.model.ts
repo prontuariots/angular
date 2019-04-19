@@ -1,11 +1,9 @@
-export class Doctor {
+export class Unit {
     id: string;
     name: string;
-    crm: string;
 
     constructor() {
         this.id = undefined;
         this.name = undefined;
-        this.crm = undefined;
     }
 }

@@ -1,12 +1,15 @@
 import { MatDialog } from '@angular/material';
 import { Component, OnInit, Input } from '@angular/core';
 
+import { RegistrationService } from 'src/app/business/registration/registration.service';
+
+import { Unit } from 'src/app/business/registration/unit/models/unit.model';
 import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
+import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
 
 import { SchedulingEventFormComponent } from '../scheduling-event-form/scheduling-event-form.component';
 import { DoctorFormComponent } from '../../../registration/doctor/components/doctor-form/doctor-form.component';
-import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
-import { RegistrationService } from 'src/app/business/registration/registration.service';
+import { UnitFormComponent } from 'src/app/business/registration/unit/components/unit-form/unit-form.component';
 
 @Component({
   selector: 'app-scheduling-day-view',
@@ -16,6 +19,7 @@ import { RegistrationService } from 'src/app/business/registration/registration.
 export class SchedulingDayViewComponent implements OnInit {
 
   doctors: Doctor[];
+  units: Unit[];
 
   @Input() hoursEvents: SchedulingHourEvent[];
 
@@ -23,12 +27,17 @@ export class SchedulingDayViewComponent implements OnInit {
     private dialog: MatDialog,
     private registrationService: RegistrationService
   ) {
+    this.units = [];
     this.doctors = [];
   }
 
   ngOnInit() {
     this.registrationService.getDoctors().subscribe(data => {
       this.doctors = data;
+    });
+    
+    this.registrationService.getUnits().subscribe(data => {
+      this.units = data;
     });
   }
 
@@ -49,16 +58,38 @@ export class SchedulingDayViewComponent implements OnInit {
     });
   }
 
+  addUnit(): void {
+    const dialogRef = this.dialog.open(UnitFormComponent, {
+      width: "70%",
+    });
+
+    dialogRef.componentInstance.cancel.subscribe(() => {
+      dialogRef.close();
+    });
+
+    dialogRef.componentInstance.submit.subscribe((date: any) => {
+      this.units.push(date.result);
+      this.registrationService.saveUnit(date.result);
+
+      dialogRef.close();
+    });
+  }
+
   addHourEvent(hourEvent: SchedulingHourEvent) {
     const dialogRef = this.dialog.open(SchedulingEventFormComponent, {
       width: "70%",
       data: hourEvent
     });
 
+    dialogRef.componentInstance.units = this.units;
     dialogRef.componentInstance.doctors = this.doctors;
 
-    const sub = dialogRef.componentInstance.addDoctor.subscribe(() => {
+    const addDoctor = dialogRef.componentInstance.addDoctor.subscribe(() => {
       this.addDoctor();
+    });
+
+    const addUnit = dialogRef.componentInstance.addUnit.subscribe(() => {
+      this.addUnit();
     });
 
     dialogRef.afterClosed().subscribe(resource => {

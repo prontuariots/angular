@@ -59,11 +59,14 @@ export class SessionService {
 
 
   setDoctor(doctor: any): void {
-    let doctors = this.getDoctors();
-
-    doctors.push(doctor);
+    let doctors = [...this.getDoctors(), doctor];
 
     localStorage.setItem('doctors', JSON.stringify(doctors));
+  }
+  setUnit(unit: any): void {
+    let units = [...this.getUnits(), unit];
+
+    localStorage.setItem('units', JSON.stringify(units));
   }
 
   getDoctors(): any[] {
@@ -72,5 +75,12 @@ export class SessionService {
     doctors = doctors || [];
 
     return doctors;
+  }
+  getUnits(): any[] {
+    let units = JSON.parse(localStorage.getItem('units'));
+
+    units = units || [];
+
+    return units;
   }
 }

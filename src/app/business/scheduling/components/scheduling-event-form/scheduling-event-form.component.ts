@@ -4,9 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { SchedulingComponent } from '../scheduling/scheduling.component';
 
-import { Unit } from 'src/app/business/registration/unit/models/unit.model';
 import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
+
+import { Unit } from 'src/app/business/registration/unit/models/unit.model';
 import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
+import { Customer } from 'src/app/business/registration/customer/models/customer.model';
 
 @Component({
   selector: 'app-scheduling-event-form',
@@ -15,9 +17,9 @@ import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model
 })
 export class SchedulingEventFormComponent implements OnInit {
 
-  @Input() units: Unit[];
-  @Input() customers: any[];
+  @Input() customers: Customer[];
   @Input() doctors: Doctor[];
+  @Input() units: Unit[];
 
   hourEvent: SchedulingHourEvent;
 

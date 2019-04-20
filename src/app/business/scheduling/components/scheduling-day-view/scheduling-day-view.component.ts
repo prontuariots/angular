@@ -44,7 +44,7 @@ export class SchedulingDayViewComponent implements OnInit {
     this.registrationService.getDoctors().subscribe(data => {
       this.doctors = data;
     });
-    
+
     this.registrationService.getUnits().subscribe(data => {
       this.units = data;
     });
@@ -60,16 +60,16 @@ export class SchedulingDayViewComponent implements OnInit {
     dialogRef.componentInstance.doctors = this.doctors;
     dialogRef.componentInstance.customers = this.customers;
 
-    const addDoctor = dialogRef.componentInstance.addDoctor.subscribe(() => {
+    dialogRef.componentInstance.addDoctor.subscribe(() => {
       this.addDoctor();
     });
 
-    const addUnit = dialogRef.componentInstance.addUnit.subscribe(() => {
-      this.addUnit();
+    dialogRef.componentInstance.addCustomer.subscribe(() => {
+      this.addCustomer();
     });
 
-    const addCustomer = dialogRef.componentInstance.addCustomer.subscribe(() => {
-      this.addCustomer();
+    dialogRef.componentInstance.addUnit.subscribe(() => {
+      this.addUnit();
     });
 
     dialogRef.afterClosed().subscribe(resource => {
@@ -91,7 +91,7 @@ export class SchedulingDayViewComponent implements OnInit {
 
 
 
- private addCustomer(): void {
+  private addCustomer(): void {
     const dialogRef = this.dialog.open(CustomerFormComponent, {
       width: "70%",
     });
@@ -108,7 +108,7 @@ export class SchedulingDayViewComponent implements OnInit {
     });
   }
 
- private addDoctor(): void {
+  private addDoctor(): void {
     const dialogRef = this.dialog.open(DoctorFormComponent, {
       width: "70%",
     });
@@ -125,7 +125,7 @@ export class SchedulingDayViewComponent implements OnInit {
     });
   }
 
- private addUnit(): void {
+  private addUnit(): void {
     const dialogRef = this.dialog.open(UnitFormComponent, {
       width: "70%",
     });

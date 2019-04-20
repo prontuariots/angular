@@ -13,7 +13,7 @@
 
     <tbody>
       <tr *ngFor="let hourEvent of hoursEvents">
-        <td class="text-center" (click)="addHourEvent(hourEvent)">
+        <td class="text-center c-pointer" (click)="addHourEvent(hourEvent)">
           <b>{{ hourEvent.date | date:'HH:mm' }}</b>
         </td>
         <td>{{hourEvent.event.patient}}</td>

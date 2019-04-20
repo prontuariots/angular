@@ -1,7 +1,10 @@
+<h1 mat-dialog-title class="text-center">
+  {{ title }}
+</h1>
+
 <form [formGroup]="formGroup">
   <formly-form [model]="model" [fields]="formFields" [form]="formGroup"></formly-form>
 </form>
-
 
 <button mat-button mat-raised-button color="primary" (click)="onSubmitCreate()" [disabled]="!formGroup.valid">
   Adicionar

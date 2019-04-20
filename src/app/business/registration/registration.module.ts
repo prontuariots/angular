@@ -4,6 +4,7 @@ import { BrowserModule }    from '@angular/platform-browser';
 
 import { UnitModule } from './unit/unit.module';
 import { DoctorModule } from './doctor/doctor.module';
+import { CustomerModule } from './customer/customer.module';
 
 import { RegistrationService } from './registration.service';
 
@@ -18,6 +19,7 @@ import { RegistrationService } from './registration.service';
   exports: [
     UnitModule,
     DoctorModule,
+    CustomerModule
   ],
   providers: [
     RegistrationService

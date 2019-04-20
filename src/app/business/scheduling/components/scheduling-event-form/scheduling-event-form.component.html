@@ -26,15 +26,15 @@
     <button class="pull-right" mat-button mat-raised-button color="accent" (click)="addUnit.emit('')">[ + ]</button>
     
     <mat-form-field>
-      <input type="text" placeholder="Selecione um médico" aria-label="Number" matInput [formControl]="myControl"
-        [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of options" [value]="option">
-          {{option}}
+      <input type="text" placeholder="Selecione um cliente" aria-label="Number" matInput
+        [matAutocomplete]="customersAutocomplete">
+      <mat-autocomplete #customersAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let option of customers" [value]="option.name">
+          {{option.name}} - {{option.cpf}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button class="pull-right" mat-button mat-raised-button color="accent" (click)="addDoctor.emit('')">[ + ]</button>
+    <button class="pull-right" mat-button mat-raised-button color="accent" (click)="addCustomer.emit('')">[ + ]</button>
   </mat-dialog-content>
 
   <mat-dialog-actions>

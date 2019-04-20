@@ -21,6 +21,7 @@ export class SchedulingEventFormComponent implements OnInit {
 
   hourEvent: SchedulingHourEvent;
 
+  @Output() addCustomer: EventEmitter<string> = new EventEmitter();
   @Output() addDoctor: EventEmitter<string> = new EventEmitter();
   @Output() addUnit: EventEmitter<string> = new EventEmitter();
 

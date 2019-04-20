@@ -1,3 +1,4 @@
+import { Customer } from './customer/models/customer.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,6 +19,9 @@ export class RegistrationService {
 
     }
 
+    getCustomers(): Observable<Customer[]> {
+        return of(this.session.getCustomers())
+    }
     getDoctors(): Observable<Doctor[]> {
         return of(this.session.getDoctors())
     }
@@ -25,6 +29,9 @@ export class RegistrationService {
         return of(this.session.getUnits())
     }
 
+    saveCustomer(customer: Customer): void {
+        this.session.setCustomer(customer);
+    }
     saveDoctor(doctor: Doctor): void {
         this.session.setDoctor(doctor);
     }

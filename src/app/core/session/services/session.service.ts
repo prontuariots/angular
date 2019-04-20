@@ -58,6 +58,11 @@ export class SessionService {
 
 
 
+  setCustomer(customer: any): void {
+    let customers = [...this.getUnits(), customer];
+
+    localStorage.setItem('customers', JSON.stringify(customers));
+  }
   setDoctor(doctor: any): void {
     let doctors = [...this.getDoctors(), doctor];
 
@@ -69,6 +74,13 @@ export class SessionService {
     localStorage.setItem('units', JSON.stringify(units));
   }
 
+  getCustomers(): any[] {
+    let customers = JSON.parse(localStorage.getItem('customers'));
+
+    customers = customers || [];
+
+    return customers;
+  }
   getDoctors(): any[] {
     let doctors = JSON.parse(localStorage.getItem('doctors'));
 

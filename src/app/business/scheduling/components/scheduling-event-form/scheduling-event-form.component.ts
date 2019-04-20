@@ -21,11 +21,11 @@ export class SchedulingEventFormComponent implements OnInit {
   @Input() doctors: Doctor[];
   @Input() units: Unit[];
 
-  hourEvent: SchedulingHourEvent;
-
   @Output() addCustomer: EventEmitter<string> = new EventEmitter();
   @Output() addDoctor: EventEmitter<string> = new EventEmitter();
   @Output() addUnit: EventEmitter<string> = new EventEmitter();
+
+  hourEvent: SchedulingHourEvent;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) hourEvent: SchedulingHourEvent,

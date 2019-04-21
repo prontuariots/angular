@@ -107,8 +107,6 @@ export class SchedulingComponent implements OnInit {
 
       start = addMinutes(start, this.hourSegments);
     }
-    console.log(this.schedules);
-    console.log(this.datesSchedules);
   }
   private getSchedulesToDate(date): Scheduling[] {
     const filter = this.schedules.filter(item => {
@@ -116,13 +114,6 @@ export class SchedulingComponent implements OnInit {
 
       return iDate.toString() == date.toString();
     });
-
-    // if (!filter.length) {
-    //   let scheduling = new Scheduling();
-    //   scheduling.date = date;
-
-    //   filter.push(scheduling);
-    // }
 
     return filter;
   }

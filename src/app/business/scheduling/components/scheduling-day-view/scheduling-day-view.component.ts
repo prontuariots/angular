@@ -85,7 +85,14 @@ export class SchedulingDayViewComponent implements OnInit {
         let scheduling: Scheduling = resource.scheduling;
 
         this.datesSchedules.forEach((item: DateSchedules) => {
-          if (item.date == scheduling.date)
+          let schedulingDate, itemDate;
+          
+          itemDate = new Date(item.date);
+          schedulingDate = new Date(scheduling.date);
+
+          item.schedules = item.schedules.filter(item => item.id != scheduling.id);
+
+          if (itemDate.toString() == schedulingDate.toString())
             item.schedules.push(scheduling);
         });
 

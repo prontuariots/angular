@@ -22,10 +22,16 @@ export class SchedulingService {
         return of(this.session.getSchedules())
     }
 
-    saveScheduler(Scheduling: Scheduling): void {
-        if (!Scheduling.id)
-            Scheduling.id = UUID.UUID();
+    removeScheduler(scheduling: Scheduling): void {
+        this.session.removeScheduling(scheduling);
+    }
 
-        this.session.setScheduling(Scheduling);
+    saveScheduler(scheduling: Scheduling): void {
+        if (!scheduling.id)
+            scheduling.id = UUID.UUID();
+        else
+            this.removeScheduler(scheduling);
+
+        this.session.setScheduling(scheduling);
     }
 }

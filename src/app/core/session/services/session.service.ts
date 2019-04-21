@@ -107,4 +107,10 @@ export class SessionService {
 
     return units;
   }
+
+  removeScheduling(scheduling: any): void {
+    let schedules = this.getSchedules().filter(item => item.id != scheduling.id);
+
+    localStorage.setItem('schedules', JSON.stringify(schedules));
+  }
 }

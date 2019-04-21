@@ -7,9 +7,15 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 
 import { MaterialModule } from './../../shared/material/material.module';
 
+import { FormlyAutocompleteTypeComponent } from './components/formly-autocomplete-type/formly-autocomplete-type.component';
+
 const formlyConfig = {
   types: [
-   
+    {
+      name: 'autocomplete',
+      wrappers: ['form-field'],
+      component: FormlyAutocompleteTypeComponent,
+    }
   ],
   validationMessages: [
 
@@ -35,6 +41,6 @@ const exportsModules = [
 @NgModule({
   imports: importsModules,
   exports: exportsModules,
-  declarations: [],
+  declarations: [FormlyAutocompleteTypeComponent],
 })
 export class FormModule { }

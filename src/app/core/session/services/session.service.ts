@@ -68,6 +68,11 @@ export class SessionService {
 
     localStorage.setItem('doctors', JSON.stringify(doctors));
   }
+  setScheduling(scheduling: any): void {
+    let schedules = [...this.getSchedules(), scheduling];
+
+    localStorage.setItem('schedules', JSON.stringify(schedules));
+  }
   setUnit(unit: any): void {
     let units = [...this.getUnits(), unit];
 
@@ -87,6 +92,13 @@ export class SessionService {
     doctors = doctors || [];
 
     return doctors;
+  }
+  getSchedules(): any[] {
+    let schedules = JSON.parse(localStorage.getItem('schedules'));
+
+    schedules = schedules || [];
+
+    return schedules;
   }
   getUnits(): any[] {
     let units = JSON.parse(localStorage.getItem('units'));

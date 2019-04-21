@@ -1,26 +1,32 @@
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table class="table table-bordered vertical-center">
     <thead>
       <tr>
         <th class="text-center t-w-10">Hora</th>
-        <th class="text-center t-w-30">Paciente</th>
+        <th class="text-center t-w-25">Paciente</th>
         <th class="text-center t-w-10">Telefone</th>
         <th class="text-center t-w-30">Médico</th>
         <th class="text-center t-w-10">Unidade</th>
         <th class="text-center t-w-10">Status</th>
+        <th class="t-w-5"></th>
       </tr>
     </thead>
 
-    <tbody>
-      <tr *ngFor="let hourEvent of hoursEvents">
-        <td class="text-center c-pointer" (click)="addHourEvent(hourEvent)">
-          <b>{{ hourEvent.date | date:'HH:mm' }}</b>
+    <tbody *ngFor="let dateSchedules of datesSchedules">
+      <tr class="dateHeader">
+        <td colspan="7" class="text-left c-pointer" (click)="addScheduling(null, dateSchedules.date)">
+          <b>{{ dateSchedules.date | date:'HH:mm' }}</b>
         </td>
-        <td>{{hourEvent.event.patient}}</td>
-        <td>{{hourEvent.event.phone}}</td>
-        <td>{{hourEvent.event.doctor}}</td>
-        <td>{{hourEvent.event.place}}</td>
-        <td>{{hourEvent.event.status}}</td>
+      </tr>
+      <tr *ngFor="let scheduling of dateSchedules.schedules">
+        <td colspan="2">{{scheduling.customer?.name}}</td>
+        <td>{{scheduling.customer?.phone}}</td>
+        <td>{{scheduling.doctor?.name}}</td>
+        <td>{{scheduling.unit?.name}}</td>
+        <td>{{scheduling.status}}</td>
+        <td class="text-center c-pointer" (click)="addScheduling(scheduling)">
+            <mat-icon>border_color</mat-icon>
+        </td>
       </tr>
     </tbody>
 

@@ -1,0 +1,12 @@
+<input matInput 
+[matAutocomplete]="auto" 
+[formControl]="formControl" 
+[formlyAttributes]="field" 
+[placeholder]="to.placeholder"
+(keyup)="refreshFilter($event)">
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="valueMapper">
+  <mat-option *ngFor="let option of filter | async" [value]="option[valueKey]">
+    {{ option[textKey] }}
+  </mat-option>
+</mat-autocomplete>

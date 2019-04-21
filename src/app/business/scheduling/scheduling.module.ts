@@ -6,6 +6,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AppRoutingModule } from '../../app-routing.module';
 import { RegistrationModule } from './../registration/registration.module';
 
+import { SchedulingService } from './scheduling.service';
+
 import { UnitFormComponent } from './../registration/unit/components/unit-form/unit-form.component';
 import { DoctorFormComponent } from '../registration/doctor/components/doctor-form/doctor-form.component';
 import { CustomerFormComponent } from './../registration/customer/components/customer-form/customer-form.component';
@@ -40,6 +42,9 @@ import { SchedulingEventFormComponent } from './components/scheduling-event-form
       provide: DateAdapter,
       useFactory: adapterFactory
     })
+  ],
+  providers: [
+    SchedulingService
   ]
 })
 export class SchedulingModule { }

@@ -7,7 +7,8 @@ import { Unit } from 'src/app/business/registration/unit/models/unit.model';
 import { Customer } from './../../../registration/customer/models/customer.model';
 import { Doctor } from 'src/app/business/registration/doctor/models/doctor.model';
 
-import { SchedulingHourEvent } from '../../models/scheduling-hour-event.model';
+import { Scheduling } from '../../models/scheduling.model';
+import { DateSchedules } from '../../models/date-schedules.model';
 
 import { SchedulingEventFormComponent } from '../scheduling-event-form/scheduling-event-form.component';
 import { DoctorFormComponent } from '../../../registration/doctor/components/doctor-form/doctor-form.component';
@@ -25,7 +26,9 @@ export class SchedulingDayViewComponent implements OnInit {
   doctors: Doctor[];
   units: Unit[];
 
-  @Input() hoursEvents: SchedulingHourEvent[];
+  schedules: Scheduling[];
+
+  @Input() datesSchedules: DateSchedules[];
 
   constructor(
     private dialog: MatDialog,
@@ -50,10 +53,15 @@ export class SchedulingDayViewComponent implements OnInit {
     });
   }
 
-  addHourEvent(hourEvent: SchedulingHourEvent) {
+  addScheduling(scheduling: Scheduling, date: Date) {
+    if (!scheduling) {
+      scheduling = new Scheduling();
+      scheduling.date = date;
+    }
+
     const dialogRef = this.dialog.open(SchedulingEventFormComponent, {
       width: "70%",
-      data: hourEvent
+      data: scheduling
     });
 
     dialogRef.componentInstance.units = this.units;
@@ -74,11 +82,11 @@ export class SchedulingDayViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resource => {
       if (resource.isCreate && resource.success) {
-        let hourEvent: SchedulingHourEvent = resource.hourEvent;
+        let scheduling: Scheduling = resource.scheduling;
 
-        this.hoursEvents.forEach((item: SchedulingHourEvent) => {
-          if (item.date == hourEvent.date)
-            item.event = hourEvent.event
+        this.datesSchedules.forEach((item: DateSchedules) => {
+          if (item.date == scheduling.date)
+            item.schedules.push(scheduling);
         });
 
       } else if (!resource.isCreate && resource.success) {

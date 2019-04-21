@@ -66,7 +66,7 @@ export class SchedulingComponent implements OnInit {
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.viewDate = date;
-
+    this.setDatesSchedules();
     this.setView(this.CalendarView.Day);
   }
 
@@ -75,6 +75,9 @@ export class SchedulingComponent implements OnInit {
     // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
+  onViewDateChange(): void {
+    this.setDatesSchedules();
+  }
 
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -96,17 +99,19 @@ export class SchedulingComponent implements OnInit {
   private setDatesSchedules(): void {
     let start: Date, arr = [];
 
-    start = new Date();
+    start = this.viewDate;
     start.setHours(8, 0, 0);
 
     for (let index = 0; index < ((20 - 8) * (60 / this.hourSegments)); index++) {
-      this.datesSchedules.push({
+      arr.push({
         date: start,
         schedules: this.getSchedulesToDate(start)
       });
 
       start = addMinutes(start, this.hourSegments);
     }
+
+    this.datesSchedules = arr;
   }
   private getSchedulesToDate(date): Scheduling[] {
     const filter = this.schedules.filter(item => {

@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-header>
-    <app-scheduling-header [(view)]="view" [(viewDate)]="viewDate"></app-scheduling-header>
+    <app-scheduling-header [(view)]="view" [(viewDate)]="viewDate"
+    (viewDateChange)="onViewDateChange()"></app-scheduling-header>
   </mat-card-header>
 
   <mat-card-content>

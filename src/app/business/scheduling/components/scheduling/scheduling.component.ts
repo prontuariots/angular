@@ -1,14 +1,13 @@
+import { Component, OnInit } from '@angular/core';
+
 import { SchedulingService } from '../../scheduling.service';
+
 import { Scheduling } from '../../models/scheduling.model';
 import { DateSchedules } from '../../models/date-schedules.model';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
-import { Subject } from 'rxjs';
 
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addMinutes } from 'date-fns';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
-
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-scheduling',
@@ -20,28 +19,18 @@ export class SchedulingComponent implements OnInit {
   schedules: Scheduling[];
   datesSchedules: DateSchedules[];
 
-
   dayStartHour: Date;
   dayEndHour: Date;
   hourSegments: number;
 
+
   activeDayIsOpen: boolean;
-
-
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
-  refresh: Subject<any> = new Subject();
-
   events: CalendarEvent[] = [];
 
   constructor(
-    private modal: NgbModal,
     private schedulingService: SchedulingService,
   ) {
     this.dayStartHour = new Date();
@@ -67,7 +56,8 @@ export class SchedulingComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.viewDate = date;
     this.setDatesSchedules();
-    this.setView(this.CalendarView.Day);
+
+    this.view = this.CalendarView.Day;
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -77,19 +67,6 @@ export class SchedulingComponent implements OnInit {
 
   onViewDateChange(): void {
     this.setDatesSchedules();
-  }
-
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
   }
 
 
